@@ -1,0 +1,71 @@
+// Collection: users
+{
+  _id: ObjectId,
+  username: String,
+  passwordHash: String,
+  email: String,
+  fullName: String,
+  role: String,
+  createdAt: Date,
+  lastLogin: Date
+}
+
+// Collection: batches
+{
+  _id: String,  // BATCH-ABC123
+  productType: String,
+  harvestDate: Date,
+  location: String,
+  responsibleStaff: String,
+  quantity: Number,
+  status: String,
+  notes: String,
+  createdAt: Date,
+  updatedAt: Date,
+  lastUpdatedBy: { type: ObjectId, ref: 'users' },
+  blocks: [
+    {
+      blockId: Number,
+      timestamp: Number,
+      actor: String,
+      location: String,
+      data: Object,
+      prevHash: String,
+      hash: String
+    }
+  ],
+  stages: [
+    {
+      stageId: Number,
+      timestamp: Number,
+      stageName: String,
+      actor: String,
+      location: String,
+      notes: String
+    }
+  ]
+}
+
+// Collection: products
+{
+  _id: String,  // PROD-BATCH-123-001
+  batchId: { type: String, ref: 'batches' },
+  weight: Number,
+  size: String,
+  quality: String,
+  additionalNotes: String,
+  createdAt: Date,
+  createdBy: { type: ObjectId, ref: 'users' },
+  blocks: [
+    {
+      blockId: Number,
+      timestamp: Number,
+      actor: String,
+      actorType: String,  // producer, importer, trader, retailer, other
+      location: String,
+      data: Object,
+      prevHash: String,
+      hash: String
+    }
+  ]
+}
