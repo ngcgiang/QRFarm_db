@@ -3,6 +3,29 @@ const router = express.Router();
 const Product = require('../models/Product');
 const Batch = require('../models/Batch');
 
+// API: Thống kê số lượng sản phẩm theo location
+router.get('/location', async (req, res) => {
+  try {
+    const stats = await Product.aggregate([
+      {
+        $group: {
+          _id: "$blocks.location", // lấy location từ block đầu tiên
+          count: { $sum: 1 }
+        }
+      },
+      {
+        $project: {
+          location: "$_id",
+          count: 1,
+          _id: 0
+        }
+      }
+    ]);
+    res.json(stats);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
 // GET all products
 router.get('/', async (req, res) => {
   try {
