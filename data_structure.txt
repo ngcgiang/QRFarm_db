@@ -69,3 +69,19 @@
     }
   ]
 }
+
+//Collection: qr_scans
+{
+  _id: ObjectId,
+  qrId: String,               // PROD-BATCH-123-001 hoặc BATCH-ABC123
+  type: String,               // "product" hoặc "batch"
+  scanCount: Number,          // tổng số lần quét hợp lệ
+  scanLogs: [                 // tùy chọn: ghi lại chi tiết từng lượt quét (nếu cần)
+    {
+      timestamp: Date,
+      ip: String,
+      userAgent: String,
+      userId: ObjectId        // nếu người dùng đăng nhập
+    }
+  ]
+}

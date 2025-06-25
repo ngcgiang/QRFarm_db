@@ -26,11 +26,13 @@ app.get('/ping', (req, res) => {
 const batchesRouter = require('./routes/batches');
 const productsRouter = require('./routes/products');
 const recipesRouter = require('./routes/recipes');
+const logisticRouter = require('./routes/logistics');
 
 // Use routes
 app.use('/api/batches', batchesRouter);
 app.use('/api/products', productsRouter);
 app.use('/api/recipes', recipesRouter); 
+app.use('/api/logistics', logisticRouter);
 
 // Start server
 app.listen(PORT, () => {
